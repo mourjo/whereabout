@@ -12,7 +12,7 @@
   (let [{:keys [data-file-path db-file skip-db-init?]} config
         system (component/start-system
                 (component/system-map
-                 :file-data (wdl/map->FileData {:file-path data-file-path})
+                 :file-data (wdl/map->FileData {:file-path data-file-path :skip? skip-db-init?})
                  :db (wdb/map->DB {:dbtype "sqlite" :dbname db-file :skip-init? skip-db-init?})
                  ))]
     (when-not skip-db-init?

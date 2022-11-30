@@ -59,9 +59,11 @@
     records))
 
 
-(defrecord FileData [file-path]
+(defrecord FileData [file-path skip?]
   component/Lifecycle
   (start [component]
-    (assoc component :records (load-records file-path)))
+    (if skip?
+      (assoc component :records [])
+      (assoc component :records (load-records file-path))))
   (stop [component]
     (assoc component :records nil)))
