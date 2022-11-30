@@ -40,7 +40,10 @@
 
 (defn load-records
   [file-path]
-  (lines->structs (read-lines file-path)))
+  (let [records (lines->structs (read-lines file-path))]
+    (->> (group-by :ip_address records)
+         vals
+         (mapv first))))
 
 
 (defrecord FileData [file-path]

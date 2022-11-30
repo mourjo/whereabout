@@ -7,7 +7,7 @@
             [clojure.test :refer :all]))
 
 (deftest init-test
-  (let [system (component/start (sut/map->DB {:config {:dbtype "sqlite" :dbname "somefile.sqlite3"}}))]
+  (let [system (component/start (sut/map->DB {:dbtype "sqlite" :dbname "somefile.sqlite3"}))]
     (is (= []
            (jdbc/execute! (:db system)
                           (-> (hsql/select :* )

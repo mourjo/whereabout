@@ -18,10 +18,10 @@
                                              [:country :varchar]]})))
 
 
-(defrecord DB [config]
+(defrecord DB [dbtype dbname]
   component/Lifecycle
   (start [component]
-    (let [cfg (jdbc/get-datasource config)
+    (let [cfg (jdbc/get-datasource {:dbtype dbtype :dbname dbname})
           configured-component (assoc component :db cfg)]
       (init-tables configured-component)
       configured-component))
