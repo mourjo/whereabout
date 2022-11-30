@@ -5,5 +5,5 @@
 
 (defn -main
   [& args]
-  (pp/pprint (take 10 (wdl/do-stuff))))
+  )
 
