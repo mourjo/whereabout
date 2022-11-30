@@ -24,12 +24,14 @@
 
 
 (defn valid-record?
+  "Checks if the current record has valid data"
   [data]
   (and (valid-ip-address? data)
        ((some-fn (comp seq :country) (comp seq :city)) data)))
 
 
 (defn lines->structs
+  "Converts line of the input file into a hash map"
   [lines]
   (let [header-line (map keyword (first lines))]
     (keep (fn [line]
@@ -40,23 +42,24 @@
 
 
 (defn load-records
+  "Reads a file's contents, filters out invalid records and deduplicates records"
   [file-path]
   (let [now (System/nanoTime)
         lines (read-lines file-path)
-        records (lines->structs lines)
-        result (->> (group-by :ip_address records)
-                    vals
-                    (mapv first))]
+        duplicated-records (lines->structs lines)
+        records (->> (group-by :ip_address duplicated-records)
+                     vals
+                     (mapv first))]
     (ctl/info (format "Imported %,d out of %,d records successfully, in %,.2f ms"
                       (count records)
                       (dec (count lines))
                       (/ (double (- (. System (nanoTime)) now)) 1000000.0)))
-    result))
+    records))
 
 
 (defrecord FileData [file-path]
   component/Lifecycle
   (start [component]
-    (assoc component :data-records (load-records file-path)))
+    (assoc component :records (load-records file-path)))
   (stop [component]
-    (assoc component :data-records nil)))
+    (assoc component :records nil)))

@@ -1,12 +1,10 @@
 (ns whereabout.db
   (:require [next.jdbc :as jdbc]
             [honey.sql :as sql]
-            [honey.sql.helpers :as hsql]
             [com.stuartsierra.component :as component]))
 
-
-
 (defn init-tables
+  "(Re-)Initializes the tables"
   [system]
   (jdbc/execute! (:db system)
                  (sql/format {:drop-table [:if-exists :locations]}))

@@ -6,7 +6,7 @@
 
 (deftest loader-test
   (let [system (component/start (sut/map->FileData {:file-path "data_dump.csv"}))
-        data (:data-records system)]
+        data (:records system)]
     (is (not-any? empty? (map :ip_address data)))
     (is (= ["Afghanistan" "Albania" "Algeria" "American Samoa" "Andorra"]
            (take 5 (distinct (sort (map :country data))))))
