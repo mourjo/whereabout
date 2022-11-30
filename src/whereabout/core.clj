@@ -1,11 +1,12 @@
 (ns whereabout.core
   (:gen-class)
-  (:require [whereabout.data-loader :as wdl]
-            [whereabout.db :as wdb]
-            [whereabout.model :as wm]
-            [com.stuartsierra.component :as component]
-            [clojure.string :as cstr]
-            [clojure.tools.logging :as ctl]))
+  (:require
+   [clojure.string :as cstr]
+   [clojure.tools.logging :as ctl]
+   [com.stuartsierra.component :as component]
+   [whereabout.data-loader :as wdl]
+   [whereabout.db :as wdb]
+   [whereabout.model :as wm]))
 
 (defn init-system [config]
   (let [{:keys [data-file-path db-file skip-db-init?]} config

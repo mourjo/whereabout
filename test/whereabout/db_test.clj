@@ -1,10 +1,11 @@
 (ns whereabout.db-test
-  (:require [whereabout.db :as sut]
-            [com.stuartsierra.component :as component]
-            [honey.sql :as sql]
-            [honey.sql.helpers :as hsql]
-            [next.jdbc :as jdbc]
-            [clojure.test :refer :all]))
+  (:require
+   [clojure.test :refer :all]
+   [com.stuartsierra.component :as component]
+   [honey.sql :as sql]
+   [honey.sql.helpers :as hsql]
+   [next.jdbc :as jdbc]
+   [whereabout.db :as sut]))
 
 (deftest init-test
   (let [system (component/start (sut/map->DB {:dbtype "sqlite" :dbname "somefile.sqlite3"}))]

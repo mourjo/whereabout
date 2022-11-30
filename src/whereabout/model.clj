@@ -1,10 +1,11 @@
 (ns whereabout.model
-  (:require [next.jdbc :as jdbc]
-            [next.jdbc.prepare :as jdbc-prep]
-            [honey.sql :as sql]
-            [honey.sql.helpers :as hsql]
-            [next.jdbc.result-set :as rs]
-            [clojure.tools.logging :as ctl]))
+  (:require
+   [clojure.tools.logging :as ctl]
+   [honey.sql :as sql]
+   [honey.sql.helpers :as hsql]
+   [next.jdbc :as jdbc]
+   [next.jdbc.prepare :as jdbc-prep]
+   [next.jdbc.result-set :as rs]))
 
 (defn hydrate-records
   "One-time initialization of all records read from a CSV file"

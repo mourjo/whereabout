@@ -1,8 +1,8 @@
 (ns whereabout.data-loader-test
-  (:require [whereabout.data-loader :as sut]
-            [com.stuartsierra.component :as component]
-            [clojure.test :refer :all]))
-
+  (:require
+   [clojure.test :refer :all]
+   [com.stuartsierra.component :as component]
+   [whereabout.data-loader :as sut]))
 
 (deftest loader-test
   (let [system (component/start (sut/map->FileData {:file-path "data_dump.csv"}))

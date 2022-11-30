@@ -1,11 +1,7 @@
 (ns whereabout.model-test
-  (:require [whereabout.model :as sut]
+  (:require [clojure.test :refer :all]
             [whereabout.core :as wc]
-            [clojure.test :refer :all]
-            [next.jdbc :as jdbc]
-            [honey.sql.helpers :as hsql]
-            [honey.sql :as sql]))
-
+            [whereabout.model :as sut]))
 
 (deftest lookup-test
   (let [system-1 (wc/init-system {:data-file-path "data_dump.csv"
@@ -31,23 +27,4 @@
         (is (= (select-keys line-from-file [:city :country])
                (sut/find-location system-1 (:ip_address line-from-file))))))))
 
-
-(deftest init-test
-  (let [system (wc/init-system {:data-file-path "subset_data_dump.csv"
-                                :db-file "/tmp/init_test.sqlite3"})]
-    (is (= {:country "Morocco", :city "Willburgh"}
-           (sut/find-location system "192.184.51.218")))
-    (is (= {:country "Nepal", :city "DuBuquemouth"}
-           (sut/find-location system "200.106.141.15")))
-    (jdbc/execute! (:db system)
-                   (-> (hsql/delete-from :locations)
-                       (hsql/where [:not= :ip_address "200.106.141.15"])
-                       sql/format)))
-
-  (let [system (wc/init-system {:data-file-path "data_dump.csv"
-                                :db-file "/tmp/init_test.sqlite3"
-                                :skip-db-init? true})]
-    (is (nil? (sut/find-location system "192.184.51.218")))
-    (is (= {:country "Nepal", :city "DuBuquemouth"}
-           (sut/find-location system "200.106.141.15")))))
 

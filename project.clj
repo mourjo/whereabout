@@ -17,4 +17,5 @@
                  [org.xerial/sqlite-jdbc "3.40.0.0"]
                  [com.github.seancorfield/honeysql "2.4.947"]]
   :repl-options {:init-ns whereabout.core}
-  :main whereabout.core)
+  :main whereabout.core
+  :profiles {:uberjar {:aot :all}})

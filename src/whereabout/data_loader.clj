@@ -1,9 +1,11 @@
 (ns whereabout.data-loader
-  (:require [clojure.data.csv :as csv]
-            [clojure.java.io :as io]
-            [com.stuartsierra.component :as component]
-            [clojure.tools.logging :as ctl])
-  (:import [java.net InetAddress UnknownHostException]))
+  (:require
+   [clojure.data.csv :as csv]
+   [clojure.java.io :as io]
+   [clojure.tools.logging :as ctl]
+   [com.stuartsierra.component :as component])
+  (:import
+   (java.net InetAddress UnknownHostException)))
 
 (defn read-lines
   "Read raw file line by line, and split each line by commas"

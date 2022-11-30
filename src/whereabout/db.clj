@@ -1,8 +1,9 @@
 (ns whereabout.db
-  (:require [next.jdbc :as jdbc]
-            [honey.sql :as sql]
-            [com.stuartsierra.component :as component]
-            [clojure.tools.logging :as ctl]))
+  (:require
+   [clojure.tools.logging :as ctl]
+   [com.stuartsierra.component :as component]
+   [honey.sql :as sql]
+   [next.jdbc :as jdbc]))
 
 (defn init-tables
   "(Re-)Initializes the tables"
