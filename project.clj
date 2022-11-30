@@ -12,6 +12,7 @@
                  [log4j/log4j "1.2.17"]
                  [org.slf4j/slf4j-log4j12 "1.7.36"]
                  [ring/ring-defaults "0.3.4"]
-                 [cheshire "5.11.0"]]
+                 [cheshire "5.11.0"]
+                 [com.stuartsierra/component "1.1.0"]]
   :repl-options {:init-ns whereabout.core}
   :main whereabout.core)

@@ -1,6 +1,7 @@
 (ns whereabout.data-loader
   (:require [clojure.data.csv :as csv]
-            [clojure.java.io :as io])
+            [clojure.java.io :as io]
+            [com.stuartsierra.component :as component])
   (:import [java.net InetAddress UnknownHostException]))
 
 (defn read-lines
@@ -38,5 +39,13 @@
 
 
 (defn load-records
-  []
-  (lines->structs (read-lines "data_dump.csv")))
+  [file-path]
+  (lines->structs (read-lines file-path)))
+
+
+(defrecord FileData [file-path]
+  component/Lifecycle
+  (start [component]
+    (assoc component :data-records (load-records file-path)))
+  (stop [component]
+    (assoc component :data-records nil)))
