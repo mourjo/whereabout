@@ -1,7 +1,8 @@
 (ns whereabout.data-loader
   (:require [clojure.data.csv :as csv]
             [clojure.java.io :as io]
-            [com.stuartsierra.component :as component])
+            [com.stuartsierra.component :as component]
+            [clojure.tools.logging :as ctl])
   (:import [java.net InetAddress UnknownHostException]))
 
 (defn read-lines
@@ -40,10 +41,17 @@
 
 (defn load-records
   [file-path]
-  (let [records (lines->structs (read-lines file-path))]
-    (->> (group-by :ip_address records)
-         vals
-         (mapv first))))
+  (let [now (System/nanoTime)
+        lines (read-lines file-path)
+        records (lines->structs lines)
+        result (->> (group-by :ip_address records)
+                    vals
+                    (mapv first))]
+    (ctl/info (format "Imported %,d out of %,d records successfully, in %,.2f ms"
+                      (count records)
+                      (dec (count lines))
+                      (/ (double (- (. System (nanoTime)) now)) 1000000.0)))
+    result))
 
 
 (defrecord FileData [file-path]

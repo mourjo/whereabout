@@ -10,7 +10,7 @@
                                     :db-file "efgh.sqlite3"})
                    component/start-system)]
     
-    (whereabout.model/load-records system)
+    (sut/load-records system)
     
     (is (= {:city "Zulaufville", :country "Algeria"}
            (sut/find-location system "193.208.69.17")))

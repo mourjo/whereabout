@@ -16,9 +16,9 @@
 
 (defn -main
   [& args]
-  (let [system (init-system {:data-file-path "data_dump.csv"
-                             :db-file "efgh.sqlite3"})]
-    (component/start-system system)
-    (whereabout.model/load-records system)
-    (ctl/info "Started system")))
+  (let [system (-> (init-system {:data-file-path "data_dump.csv"
+                                    :db-file "efgh.sqlite3"})
+                   component/start-system)]
+    (wm/load-records system)
+    (prn (wm/find-location system "147.121.62.3"))))
 
