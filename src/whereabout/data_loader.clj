@@ -37,6 +37,6 @@
           (drop 1 lines))))
 
 
-(defn do-stuff
+(defn load-records
   []
   (lines->structs (read-lines "data_dump.csv")))
