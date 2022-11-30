@@ -30,9 +30,12 @@ To compile:
 lein uberjar
 ```
 
-To run:
+To run, there are three environment settings:
+- `PORT` signifies the port on which the server will start, default `8081`
+- `DB` signifies the database storage file (SQLite), default `whereabout.sqlite3`
+- `DATA_FILE` signifies the locaton of the input file, default `resources/data_dump.csv`
 ```
-java -jar target/whereabout-0.1.0-SNAPSHOT-standalone.jar
+PORT=8888 DB=/tmp/whereaboutdb.sqlite3 DATA_FILE=/tmp/sample_data.csv java -jar target/whereabout-0.1.0-SNAPSHOT-standalone.jar
 ```
 
 ## System Design
