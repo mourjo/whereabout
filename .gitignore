@@ -19,3 +19,5 @@ pom.xml.asc
 .nrepl-port
 .cpcache/
 .DS_Store
+*.sqlite3
+*.sqlite

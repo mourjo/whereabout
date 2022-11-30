@@ -13,6 +13,8 @@
                  [org.slf4j/slf4j-log4j12 "1.7.36"]
                  [ring/ring-defaults "0.3.4"]
                  [cheshire "5.11.0"]
-                 [com.stuartsierra/component "1.1.0"]]
+                 [com.stuartsierra/component "1.1.0"]
+                 [org.xerial/sqlite-jdbc "3.40.0.0"]
+                 [com.github.seancorfield/honeysql "2.4.947"]]
   :repl-options {:init-ns whereabout.core}
   :main whereabout.core)
