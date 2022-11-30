@@ -10,9 +10,11 @@
 (defn read-lines
   "Read raw file line by line, and split each line by commas"
   [file-path]
-  (with-open [reader (io/reader (io/resource file-path))]
-    (doall
-     (csv/read-csv reader))))
+  (let [file-or-resource (or (io/resource file-path)
+                             (io/file file-path))]
+    (with-open [reader (io/reader file-or-resource)]
+      (doall
+       (csv/read-csv reader)))))
 
 
 (defn valid-ip-address?

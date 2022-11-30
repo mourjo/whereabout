@@ -11,4 +11,9 @@
     (is (= ["Afghanistan" "Albania" "Algeria" "American Samoa" "Andorra"]
            (take 5 (distinct (sort (map :country data))))))
     (is (= ["Wallis and Futuna" "Western Sahara" "Yemen" "Zambia" "Zimbabwe"]
-           (take-last 5 (distinct (sort (map :country data))))))))
+           (take-last 5 (distinct (sort (map :country data)))))))
+
+  (let [system (component/start (sut/map->FileData {:file-path "resources/subset_data_dump.csv"}))
+        data (:records system)]
+    (is (= ["Afghanistan" "Albania" "Algeria" "American Samoa" "Andorra"]
+           (take 5 (distinct (sort (map :country data))))))))
