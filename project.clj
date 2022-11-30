@@ -15,7 +15,8 @@
                  [cheshire "5.11.0"]
                  [com.stuartsierra/component "1.1.0"]
                  [org.xerial/sqlite-jdbc "3.40.0.0"]
-                 [com.github.seancorfield/honeysql "2.4.947"]]
+                 [com.github.seancorfield/honeysql "2.4.947"]
+                 [clj-http "3.12.3"]]
   :repl-options {:init-ns whereabout.core}
   :main whereabout.core
   :profiles {:uberjar {:aot :all}})

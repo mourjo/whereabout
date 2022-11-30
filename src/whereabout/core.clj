@@ -6,15 +6,21 @@
    [com.stuartsierra.component :as component]
    [whereabout.data-loader :as wdl]
    [whereabout.db :as wdb]
+   [whereabout.server :as ws]
    [whereabout.model :as wm]))
 
-(defn init-system [config]
-  (let [{:keys [data-file-path db-file skip-db-init?]} config
-        system (component/start-system
+(defn init-system
+  [{:keys [data-file-path db-file port skip-db-init?]}]
+  (let [system (component/start-system
                 (component/system-map
-                 :file-data (wdl/map->FileData {:file-path data-file-path :skip? skip-db-init?})
-                 :db (wdb/map->DB {:dbtype "sqlite" :dbname db-file :skip-init? skip-db-init?})
-                 ))]
+                 :file-data (wdl/map->FileData {:file-path data-file-path
+                                                :skip? skip-db-init?})
+                 :db (wdb/map->DB {:dbtype "sqlite"
+                                   :dbname db-file
+                                   :skip-init? skip-db-init?})
+                 :server (component/using
+                          (ws/map->Server {:port port})
+                          [:db])))]
     (when-not skip-db-init?
       (wm/hydrate-records system))
     (ctl/info (format "Started the system with components [%s]"
@@ -25,6 +31,7 @@
 (defn -main
   [& _]
   (let [system (init-system {:data-file-path "data_dump.csv"
+                             :port 8082
                              :db-file "/tmp/whereabout.sqlite3"})]
     
     (prn (wm/find-location system "147.121.62.3"))))
