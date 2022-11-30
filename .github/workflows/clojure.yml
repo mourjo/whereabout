@@ -34,5 +34,3 @@ jobs:
       run: lein test
     - name: Jar building
       run: lein uberjar
-    - name: Run the Jar 
-      run: java -jar target/whereabout-0.1.0-SNAPSHOT-standalone.jar
