@@ -35,7 +35,6 @@ To run:
 java -jar target/whereabout-0.1.0-SNAPSHOT-standalone.jar
 ```
 
-
 ## System Design
 The system is made of components that rely some other components:
 ![](resources/system.png "System diagram")
@@ -45,6 +44,40 @@ The system is made of components that rely some other components:
 
 
 The database used is SQLite.
+
+## Sample curl commands
+
+The following shows the response and headers for the happy path:
+
+```
+curl -D - -X GET "localhost:8082/location?ip=162.142.20.215"
+HTTP/1.1 200 OK
+Date: Wed, 30 Nov 2022 18:31:39 GMT
+Content-Type: application/json
+Set-Cookie: ring-session=5c291bfb-d876-4879-8472-11f963a180b0;Path=/;HttpOnly;SameSite=Strict
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Transfer-Encoding: chunked
+Server: Jetty(9.4.48.v20220622)
+
+{"result":{"city":"East Mafaldahaven","country":"French Polynesia"}}
+```
+
+
+A similar unhappy path:
+```
+curl -D - -X GET "localhost:8082/location?ip=1234"
+HTTP/1.1 404 Not Found
+Date: Wed, 30 Nov 2022 18:32:56 GMT
+Content-Type: application/json
+Set-Cookie: ring-session=50b60a29-f225-4455-9d34-e8aefe3f310c;Path=/;HttpOnly;SameSite=Strict
+X-Frame-Options: SAMEORIGIN
+X-Content-Type-Options: nosniff
+Transfer-Encoding: chunked
+Server: Jetty(9.4.48.v20220622)
+
+{"error":"Could not find a location"}
+```
 
 ## License
 

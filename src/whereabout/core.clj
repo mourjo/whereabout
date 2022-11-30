@@ -30,9 +30,14 @@
 
 (defn -main
   [& _]
-  (let [system (init-system {:data-file-path "data_dump.csv"
-                             :port 8082
-                             :db-file "/tmp/whereabout.sqlite3"})]
-    
-    (prn (wm/find-location system "147.121.62.3"))))
+  (let [port (or (System/getenv "PORT") "8082")
+        db-file (or (System/getenv "DB") "whereabout.sqlite3")
+        data-file-path (or (System/getenv "DATA_FILE") "data_dump.csv")]
+    (ctl/info "Starting the system with"
+              {:port port
+               :db-file db-file
+               :data-file-path data-file-path}) 
+    (init-system {:data-file-path data-file-path
+                  :port (Integer/parseInt port)
+                  :db-file db-file})))
 
