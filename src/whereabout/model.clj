@@ -3,9 +3,10 @@
             [next.jdbc.prepare :as jdbc-prep]
             [honey.sql :as sql]
             [honey.sql.helpers :as hsql]
-            [next.jdbc.result-set :as rs]))
+            [next.jdbc.result-set :as rs]
+            [clojure.tools.logging :as ctl]))
 
-(defn load-records
+(defn hydrate-records
   "One-time initialization of all records read from a CSV file"
   [system]
   (jdbc/with-transaction [t (:db system)]
@@ -16,7 +17,7 @@
       (jdbc-prep/execute-batch! ps
                                 (map (juxt :ip_address :city :country) (-> system :file-data :records))
                                 {:batch-size 10000})
-      :done)))
+      (ctl/info "Inserted all records into the table"))))
 
 
 (defn find-location
