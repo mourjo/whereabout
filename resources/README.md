@@ -1,5 +1,3 @@
-# FindHotel Coding Challenge
-
 ## Geolocation Service
 
 ### Overview
